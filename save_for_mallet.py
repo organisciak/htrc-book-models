@@ -16,11 +16,10 @@ TODO:
 '''
 
 from __future__ import unicode_literals
-import glob
-from htrc_features import FeatureReader
-import bz2
-from six import iteritems
+import os
 import argparse
+from six import iteritems
+from htrc_features import FeatureReader
 
 def main():
     parser = argparse.ArgumentParser()
@@ -28,6 +27,8 @@ def main():
                        help='Path to document to parse')
     parser.add_argument('-f', '--frame-size', default=10, type=int,
                        help='Number of pages to use in sliding frame')
+    parser.add_argument('-o', '--outpath', default="tmp", type=unicode,
+                       help='Output directory')
     args = parser.parse_args()
 
     append = False 
@@ -41,8 +42,8 @@ def main():
     clean_id = ''.join([char for char in vol.title if char.isalnum()])
     
     # Open files for training (Doc=1 page) and inference (Doc=sliding set of pages)
-    tfile = open('train-{}.txt'.format(clean_id), 'w+')
-    inferfile = open('infer-{}.txt'.format(clean_id), 'w+' if not append else 'a')
+    tfile = open(os.path.join(args.outpath, 'train-{}.txt'.format(clean_id)), 'w+' if not append else 'a')
+    inferfile = open(os.path.join(args.outpath, 'infer-{}.txt'.format(clean_id)), 'w+' if not append else 'a')
 
     for page in vol.pages():
         all_terms = explode_terms(page)
