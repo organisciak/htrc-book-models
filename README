@@ -1,0 +1,13 @@
+HTRC Book Models
+----------------
+
+Within-book topic modeling on HTRC feature extraction files.
+
+This is an early release. If you are interested in trying it for yourself, please email me organisciak+htrc@gmail.com.
+
+Requirements
+------------
+
+- Linux, Mac OS, or Windows with Cygwin installed
+- HTRC Feature Reader library
+- Mallet 2.0.7
