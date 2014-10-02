@@ -1,8 +1,14 @@
-NAME=TheAmerican
+## Usage
+# ./train-infer-mallet.sh NAME NUMTOPICS
+# Where:
+# NAME - the name of the work as saved in /tmp/train-{{NAME}}.txt
+# NUMTOPICS - the number of topics to build the model for
+
+NAME=$1
+NUM_TOPICS=$2
 MALLET_HOME=mallet-2.0.7
 TRAIN=tmp/train-$NAME.txt
 INFER=tmp/infer-$NAME.txt
-NUM_TOPICS=20
 
 ### Index single-page docs (training) for Mallet
 $MALLET_HOME/bin/mallet import-file --input $TRAIN \
