@@ -21,6 +21,8 @@ This is an early release. If you are interested in trying it for yourself, pleas
     $ ./train-infer-mallet.sh ThescarletletterByNathanielHawthorne 15
     $ Rscript graph-topics.r "The Scarlet Letter" images/scarlet.png
 
+![The Scarlet Letter topics](images/scarlet.png)
+
 ### 1. Download a book from the htrc feature extraction dataset
 
 Since the current feature extraction dataset (Oct 2014) is built on the Hathitrust's non-Google-digitized public domain works, the basis of the Hathitrust Research Center's sandbox system, you can find books to visualize by using the [sandbox system's search engine](https://sandbox.htrc.illinois.edu/blacklight).
