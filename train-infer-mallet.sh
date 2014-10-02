@@ -6,7 +6,9 @@
 
 NAME=$1
 NUM_TOPICS=$2
-MALLET_HOME=mallet-2.0.7
+#MALLET_HOME=mallet-2.0.7
+: ${MALLET_HOME:?"Need to set MALLET_HOME before running this script. e.g. export MALLET_HOME=/mallet-2.0.7"}
+exit
 TRAIN=tmp/train-$NAME.txt
 INFER=tmp/infer-$NAME.txt
 
