@@ -1,10 +1,13 @@
 HTRC Book Models
 ----------------
 
-Within-book topic modeling on HTRC feature extraction files.
+Within-book topic modeling on HTRC feature extraction files. 
 
-This is an early release. If you are interested in trying it for yourself, please email me organisciak+htrc@gmail.com.
+This is an early release. If you are interested in trying it for yourself and instructions are insufficient, please email me at organisciak+htrc@gmail.com or tweet @POrg.
 
+- [Requirements](#requirements)
+- [Installation Instructions](#installation)
+- [Tutorial](#step-by-step-building-and-visualizing-a-book-model)
 
 ## Requirements
 
