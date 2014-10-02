@@ -9,8 +9,23 @@ This is an early release. If you are interested in trying it for yourself, pleas
 ## Requirements
 
 - Linux, Mac OS, or Windows with Cygwin installed
-- [HTRC Feature Reader library](https://github.com/organisciak/htrc-feature-reader)
-- Mallet 2.0.7
+- Python with [HTRC Feature Reader library](https://github.com/organisciak/htrc-feature-reader) ([installation instructions](https://github.com/organisciak/htrc-feature-reader/blob/master/README.md#installation))
+- [Mallet 2.0.7](http://mallet.cs.umass.edu/) (on [using with Cygwin](http://stackoverflow.com/a/24791097/233577))
+- [R](http://www.r-project.org/)
+
+## Installation
+
+Install above depedencies from their respective sites.
+
+Clone this repository.
+
+    git clone https://github.com/organisciak/htrc-book-models.git
+    cd htrc-book-models
+
+Download the R packages required for this project and set MALLET_HOME if it is not already set.
+
+    Rscript R/install-packages.r
+    export MALLET_HOME=/path/to/mallet
 
 ## Step-by-step: building and visualizing a book model
 
@@ -54,7 +69,7 @@ A shell script does all the hard work with Mallet.
     Usage: ./train-infer-mallet.sh NAME NUMTOPICS
 
 Here, NAME is the string used in the temoprary files from the previous step (`/tmp/train-{{NAME}}.txt`).
-You may want to edit the script for further Mallet customizations. The script have a high number of iterations specified, if it is too slow you can reduce this. You may also need to change the reference to the home Mallet directory, if it is not `mallet-2.0.7/` as the script assumes.
+You may want to edit the script for further Mallet customizations. The script has a high number of iterations specified, if it is too slow you can reduce this.
 
     $ ./train-infer-mallet.sh ThescarletletterByNathanielHawthorne 15
 
