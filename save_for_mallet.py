@@ -24,7 +24,8 @@ from htrc_features import FeatureReader
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('input',
-                       help='Path to document to parse')
+                       help='Path to document to parse',
+                       nargs='*')
     parser.add_argument('-f', '--frame-size', default=10, type=int,
                        help='Number of pages to use in sliding frame')
     parser.add_argument('-o', '--outpath', default="tmp", type=unicode,
@@ -34,35 +35,36 @@ def main():
     append = False 
     frame = []
 
-    # Get a list of json.bz2 files to read
-    freader = FeatureReader(args.input)
-    vol = freader.next()
+    for volinput in args.input:
+        # Get a list of json.bz2 files to read
+        freader = FeatureReader(volinput)
+        vol = freader.next()
 
-    # Remove special characters from title. This will allow us to name a file after it
-    clean_id = ''.join([char for char in vol.title if char.isalnum()])
-    
-    # Open files for training (Doc=1 page) and inference (Doc=sliding set of pages)
-    tfile = open(os.path.join(args.outpath, 'train-{}.txt'.format(clean_id)), 'w+' if not append else 'a')
-    inferfile = open(os.path.join(args.outpath, 'infer-{}.txt'.format(clean_id)), 'w+' if not append else 'a')
-
-    for page in vol.pages():
-        all_terms = explode_terms(page)
+        # Remove special characters from title. This will allow us to name a file after it
+        clean_id = ''.join([char for char in vol.title if char.isalnum()])
         
-        # Data cleaning
-        all_terms = [clean(term) for term in all_terms]
-        all_terms = [term for term in all_terms if term]
+        # Open files for training (Doc=1 page) and inference (Doc=sliding set of pages)
+        tfile = open(os.path.join(args.outpath, 'train-{}.txt'.format(clean_id)), 'w+' if not append else 'a')
+        inferfile = open(os.path.join(args.outpath, 'infer-{}.txt'.format(clean_id)), 'w+' if not append else 'a')
 
-        # Make into string
-        pagetxt = " ".join(all_terms)
-        frame += [pagetxt]
-        while len(frame) > args.frame_size:
-            frame = frame[1:]
-        tfile.write('page{0} page{0} {1}\n'.format(page.seq, pagetxt))
-        inferfile.write('pages{0}to{1} pages{0}to{1} {2}\n'.format(page.seq+1-len(frame), 
-                                                   page.seq, 
-                                                   " ".join(frame)))
-    tfile.close()
-    inferfile.close()
+        for page in vol.pages():
+            all_terms = explode_terms(page)
+            
+            # Data cleaning
+            all_terms = [clean(term) for term in all_terms]
+            all_terms = [term for term in all_terms if term]
+
+            # Make into string
+            pagetxt = " ".join(all_terms)
+            frame += [pagetxt]
+            while len(frame) > args.frame_size:
+                frame = frame[1:]
+            tfile.write('page{0} page{0} {1}\n'.format(page.seq, pagetxt))
+            inferfile.write('pages{0}to{1} pages{0}to{1} {2}\n'.format(page.seq+1-len(frame), 
+                                                       page.seq, 
+                                                       " ".join(frame)))
+        tfile.close()
+        inferfile.close()
 
 def clean(s):
     # Strip special chars

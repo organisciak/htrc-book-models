@@ -45,6 +45,8 @@ This script uses the [HTRC Feature Reader library](https://github.com/organiscia
 
     $ python save_for_mallet.py texts/uc2.ark+\=13960\=t75t3gh25.json.bz2
 
+Note that you can input a list of input documents if you are processing more than one.
+
 Now, there are two files in `tmp/`: `train-ThescarletletterByNathanielHawthorne.txt` and `infer-ThescarletletterByNathanielHawthorne.txt`.
  
 ### 3. Build topic model, then inference against sliding frame
